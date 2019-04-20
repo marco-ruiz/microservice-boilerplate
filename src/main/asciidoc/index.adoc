@@ -1,0 +1,158 @@
+= ((MODULE_NAME)) RESTful API Guide
+((COMPANY));
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+:operation-curl-request-title: Example request
+:operation-http-response-title: Example response
+
+[introduction]
+= Introduction
+
+"((MODULE_NAME))" ((MODULE_ID)) is a module of the ((COMPANY))'s "((SYSTEM))" system, that provides
+a RESTful API to ((FUNCTION)).
+
+
+[[overview]]
+= Overview
+
+[[overview-http-verbs]]
+== HTTP verbs
+((MODULE_ID)) tries to adhere as closely as possible to standard HTTP and REST conventions in its use of HTTP verbs.
+|===
+| Verb | Usage
+
+| `GET`
+| Used to retrieve a resource
+
+| `POST`
+| Used to create a new resource
+
+| `PATCH`
+| Used to update an existing resource, including partial updates
+
+| `DELETE`
+| Used to delete an existing resource
+
+|===
+
+[[overview-http-status-codes]]
+== HTTP status codes
+((MODULE_ID)) tries to adhere as closely as possible to standard HTTP and REST conventions in its
+use of HTTP status codes.
+
+|===
+| Status code | Usage
+
+| `200 OK`
+| Standard response for successful HTTP requests. The actual response will depend on the request method used.
+In a `GET` request, the response will contain an entity corresponding to the requested resource. In a `POST`
+and `PATCH` request, the response will contain an entity describing or containing the result of the action.
+
+| `400 Bad Request`
+| Syntax error. The server cannot or will not process the request due to something that is perceived to
+be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing).
+
+| `404 Not Found`
+| The requested resource could not be found but may be available again in the future. Subsequent requests
+by the client are permissible.
+
+| `409 Conflict`
+| Application constraint error. The requested operation will not be executed because the target resource
+conflicts with application constraints.
+
+| `422 Unprocessable Entity`
+| Semantic error. The requested operation will not be executed because the description of the target
+resource is erroneous.
+
+|===
+
+////
+[[overview-headers]]
+== Headers
+
+Every response has the following header(s):
+
+operation::headers-example[snippets='response-fields']
+////
+
+[[overview-errors]]
+== Errors
+
+Whenever an error response (status code >= 400) is returned, the body will contain a JSON object
+that describes the problem. The error object has the following structure:
+
+include::{snippets}/error-example/response-fields.adoc[]
+
+For example, a request that attempts to delete the index will produce a
+`405 Method Not Allowed` response:
+
+include::{snippets}/error-example/http-response.adoc[]
+
+
+[[overview-hypermedia]]
+== Hypermedia
+
+((MODULE_ID)) uses hypermedia and resources include links to other resources in their
+responses. Responses are in http://stateless.co/hal_specification.html[Hypertext Application
+from resource to resource.
+Language (HAL)] format. Links can be found beneath the `_links` key. Users of the API should
+not create URIs themselves, instead they should use the above-described links to navigate.
+
+
+[[resources]]
+= Resources
+
+
+
+
+
+//=========================
+// ROOT / INDEX
+//=========================
+[[resources-index]]
+== 0. Index
+The index provides the entry point into the ((MODULE_ID)).
+
+[[resources-index-links]]
+=== Links
+
+include::{snippets}/index-example/links.adoc[]
+
+[[resources-index-access]]
+=== 0.1. Accessing the index
+A `GET` request is used to access the index
+
+operation::index-example[snippets='response-fields,curl-request,http-response']
+//operation::index-example[snippets='request-parameters,request-fields,response-fields,curl-request,http-response']
+
+
+
+
+
+//=========================
+// ((RESOURCEX))
+//=========================
+[[resources-RESOURCEX]]
+== 1. ((RESOURCEX))
+The ((RESOURCEX)) resource is used to ((OPERATIONS)) ((RESOURCEX))s.
+
+[[resources-RESOURCEX-links]]
+=== Links
+
+include::{snippets}/RESOURCEX-retrieve-example/links.adoc[]
+
+'''
+
+[[resources-RESOURCEX-OPERATION]]
+=== 1.1. ((OPERATION)) a ((RESOURCEX))
+TIP: Technical Specification API # ((API_NUMBER))
+
+A `((HTTP_METHOD))` request will ((OPERATION_DESCRIPTION)).
+
+operation::RESOURCEX-OPERATION-example[snippets='request-parameters,request-fields,response-fields,curl-request,http-response']
+
+'''
