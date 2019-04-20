@@ -1,8 +1,8 @@
-# Microservice Boilerplate
+# Microservice Boilerplate [![Build Status](https://travis-ci.org/marco-ruiz/microservice-boilerplate.svg?branch=master)](https://travis-ci.org/marco-ruiz/microservice-boilerplate)
 
 This is a Spring Boot based project; which wires up several concerns common when building microservices.
 
-## SOURCE CODE
+## Source Code
 - Project structure broken down by functional layers: application -> web -> service -> repository.
 - Integration of all layers.
 
@@ -31,7 +31,7 @@ This is a Spring Boot based project; which wires up several concerns common when
 - Sample entity model with minimum necessary JPA annotations to be used with the repository boilerplate. 
 - Abstract Lucene custom repository to support text search features. 
 
-## DEV OPS
+## DevOps
 
 - Gradle based build.
 - Configuration to automatically generate JPA metamodels during the build.
